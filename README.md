@@ -1,44 +1,58 @@
-# 🏎️ Formula 1 Race Position Predictor with XGBoost
+# 🏎️ Formula 1 Race Position Predictor – ML + ETL + Visualization
 
-This project uses historical Formula 1 data and machine learning to predict race **finishing positions** for drivers. Leveraging XGBoost regression, the model evaluates a wide range of features including circuit attributes, driver profiles, and race characteristics to generate ranked predictions.
+This project combines **machine learning**, **ETL automation**, and **dashboard visualization** to predict Formula 1 drivers’ race **finishing positions** based on historical and real-time data. By integrating data from the Jalopnik API, storing it in a SQL Server backend, and applying models like **XGBoost** and **KNN**, this pipeline enables powerful F1 performance forecasting.
 
-> 💡 **Goal**: Use real-world F1 data to predict a driver’s finish position and rank them for upcoming races.
+> 💡 **Goal**: Automatically pull and analyze Formula 1 data to predict and visualize driver race outcomes.
 
 ---
 
-## 🔧 Tech Stack
+## ⚙️ System Components
 
-- **Language**: Python  
-- **Libraries**: pandas, numpy, scikit-learn, XGBoost, seaborn, matplotlib  
-- **Environment**: Google Colab
+### 🔄 ETL Pipeline
+- Pulls real-time/historical F1 data via the **Jalopnik API**
+- Cleanses and transforms data using Python
+- Loads data into **SQL Server** using **SQLAlchemy**
+
+### 🧠 Machine Learning Models
+
+#### 🔹 XGBoost Regressor
+- Predicts numeric race finishing position
+- Tuned with **RandomizedSearchCV** for optimal hyperparameters
+
+#### 🔹 KNN Classifier
+- Custom built KNN Classifier for Circuits
+
+### 📊 Visualization
+- Outputs are integrated into **Power BI Dashboards**
+- Enables exploration and filtering by driver, team, circuit, etc.
+
+---
+
+## 🧰 Tech Stack
+
+- **Languages**: Python, SQL  
+- **Libraries**: pandas, numpy, scikit-learn, XGBoost, matplotlib, seaborn  
+- **ETL**: Requests, SQLAlchemy, PyODBC  
+- **Storage**: Microsoft SQL Server  
+- **Dashboard**: Power BI  
+- **Environment**: Jupyter / Colab / Local Python
 
 ---
 
 ## 📁 Data Overview
 
-- `f1_full_v3.csv`: Historical training dataset  
-- `predict.csv`: Testing dataset with driver info for ranking  
+- SQL Tables: Ingested and transformed data stored in SQL Server  
 
-Key Features Used:
-- Circuit type, track direction, track type
-- Overtake difficulty rating
-- Engine, team, and year metadata
-- Normalized and encoded driver and race attributes
-
-Target Variable:
-- `position`: Driver’s final race placement (numerical)
+**Key Features Include:**
+- Circuit layout, track direction, lap count, overtake difficulty  
+- Driver stats, team engine configurations, qualifying positions  
+- Temporal context: race year, event type, and driver experience
 
 ---
 
-## ⚙️ Model Pipeline
+## 🧪 Model Training & Tuning
 
-### 🔹 Preprocessing
-- Dropped irrelevant columns (e.g. driver name, URL)
-- Applied one-hot encoding to categorical variables
-- Split dataset into training and testing sets (80/20)
-
-### 🔹 Hyperparameter Tuning
-Used **RandomizedSearchCV** to find optimal parameters for XGBoost:
+### 🔹 XGBoost Parameters (Optimized)
 
 ```python
 Best Parameters:
